@@ -13,6 +13,9 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -47,6 +50,18 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        panel: {
+          largecap: "hsl(var(--panel-largecap))",
+          "largecap-accent": "hsl(var(--panel-largecap-accent))",
+          midcap: "hsl(var(--panel-midcap))",
+          "midcap-accent": "hsl(var(--panel-midcap-accent))",
+          foreign: "hsl(var(--panel-foreign))",
+          "foreign-accent": "hsl(var(--panel-foreign-accent))",
+          bonds: "hsl(var(--panel-bonds))",
+          "bonds-accent": "hsl(var(--panel-bonds-accent))",
+          bitcoin: "hsl(var(--panel-bitcoin))",
+          "bitcoin-accent": "hsl(var(--panel-bitcoin-accent))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -65,20 +80,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {
