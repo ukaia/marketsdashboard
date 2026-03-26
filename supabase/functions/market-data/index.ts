@@ -15,6 +15,14 @@ const PANEL_SYMBOLS: Record<string, { quoteSymbol: string; newsCategory: string;
   bitcoin: { quoteSymbol: "BINANCE:BTCUSDT", newsCategory: "crypto", newsQuery: "bitcoin" },
 };
 
+// Known individual ticker symbols (validated against Finnhub)
+const VALID_TICKERS = new Set([
+  "AAPL", "MSFT", "NVDA", "AMZN", "GOOGL", "META",
+  "SMCI", "CORT", "TASK", "LUMN", "AEHR",
+  "NESN", "ASML", "SAP", "NOVO-B", "SHEL",
+  "TLT", "AGG", "BND", "TIPS", "HYG",
+]);
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -28,6 +36,7 @@ serve(async (req) => {
 
     const url = new URL(req.url);
     const panelId = url.searchParams.get("panel");
+    const ticker = url.searchParams.get("ticker"); // optional individual ticker
 
     if (!panelId || !PANEL_SYMBOLS[panelId]) {
       return new Response(JSON.stringify({ error: "Invalid panel ID" }), {
@@ -39,9 +48,12 @@ serve(async (req) => {
     const config = PANEL_SYMBOLS[panelId];
     const baseUrl = "https://finnhub.io/api/v1";
 
+    // If a specific ticker is requested, fetch its quote instead
+    const quoteSymbol = ticker && VALID_TICKERS.has(ticker) ? ticker : config.quoteSymbol;
+
     // Fetch quote and news in parallel
     const [quoteRes, newsRes] = await Promise.all([
-      fetch(`${baseUrl}/quote?symbol=${config.quoteSymbol}&token=${FINNHUB_API_KEY}`),
+      fetch(`${baseUrl}/quote?symbol=${quoteSymbol}&token=${FINNHUB_API_KEY}`),
       fetch(`${baseUrl}/news?category=${config.newsCategory}&token=${FINNHUB_API_KEY}`),
     ]);
 
