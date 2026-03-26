@@ -15,10 +15,10 @@ export interface PanelInfo {
 }
 
 export const panels: PanelInfo[] = [
-  { id: 'largecap', label: 'Large Cap', ticker: 'S&P 500', holdings: ['AAPL', 'MSFT', 'NVDA', 'AMZN', 'GOOGL', 'META'] },
-  { id: 'midcap', label: 'Small Cap', ticker: 'Russell 2000', holdings: ['SMCI', 'CORT', 'TASK', 'LUMN', 'AEHR'] },
-  { id: 'foreign', label: 'International', ticker: 'MSCI EAFE', holdings: ['NESN', 'ASML', 'SAP', 'NOVO-B', 'SHEL'] },
-  { id: 'bonds', label: 'Bonds', ticker: '10Y Treasury', holdings: ['TLT', 'AGG', 'BND', 'TIPS', 'HYG'] },
+  { id: 'largecap', label: 'Large Cap', ticker: 'S&P 500 (SPY)', holdings: ['AAPL', 'MSFT', 'NVDA', 'AMZN', 'GOOGL', 'META'] },
+  { id: 'midcap', label: 'Small Cap', ticker: 'Russell 2000 (IWM)', holdings: ['SMCI', 'CORT', 'TASK', 'LUMN', 'AEHR'] },
+  { id: 'foreign', label: 'International', ticker: 'MSCI EAFE (EFA)', holdings: ['NESN', 'ASML', 'SAP', 'NOVO-B', 'SHEL'] },
+  { id: 'bonds', label: 'Long-Term Bonds', ticker: 'Long-Term Treasury (TLT)', holdings: ['TLT', 'AGG', 'BND', 'TIPS', 'HYG'] },
   { id: 'bitcoin', label: 'Bitcoin', ticker: 'BTC/USD' },
 ];
 
