@@ -102,7 +102,7 @@ const AccordionShelf: React.FC = () => {
     <div className={`h-screen w-screen flex overflow-hidden ${layout === 'horizontal' ? 'flex-row' : 'flex-col'}`}>
       {/* Layout toggle */}
       <button
-        onClick={() => setLayout(l => l === 'vertical' ? 'horizontal' : 'vertical')}
+        onClick={handleToggleLayout}
         className="fixed top-3 right-3 z-50 p-2 rounded-lg bg-foreground/10 hover:bg-foreground/20 transition-colors backdrop-blur-sm"
         title={layout === 'vertical' ? 'Switch to side shelves' : 'Switch to top/bottom shelves'}
       >
@@ -132,7 +132,7 @@ const AccordionShelf: React.FC = () => {
                 panel={panel}
                 direction={index < activeIndex ? 'before' : 'after'}
                 layout={layout}
-                onClick={() => setActivePanel(panel.id)}
+                onClick={() => handleSetPanel(panel.id)}
               />
             )}
             {isActive && (
