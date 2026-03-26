@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { type PanelInfo, panelThemes } from '@/data/panelData';
 import { useMarketData } from '@/hooks/useMarketData';
 import Sparkline from './Sparkline';
@@ -9,8 +9,11 @@ interface PanelContentProps {
 }
 
 const PanelContent: React.FC<PanelContentProps> = ({ panel }) => {
+  const [selectedTicker, setSelectedTicker] = useState<string | undefined>(undefined);
   const now = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-  const { data, isLoading, isError } = useMarketData(panel.id);
+  const { data, isLoading, isError } = useMarketData(panel.id, selectedTicker);
+
+  const displayLabel = selectedTicker || panel.ticker;
 
   if (isLoading) {
     return (
@@ -36,7 +39,7 @@ const PanelContent: React.FC<PanelContentProps> = ({ panel }) => {
       <div className="flex flex-col md:flex-row md:items-end gap-4 mb-6">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <p className="text-sm font-medium tracking-widest uppercase opacity-60">{panel.ticker}</p>
+            <p className="text-sm font-medium tracking-widest uppercase opacity-60">{displayLabel}</p>
             <span className="text-[10px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 font-medium">LIVE</span>
           </div>
           <div className="flex items-baseline gap-4">
@@ -49,13 +52,31 @@ const PanelContent: React.FC<PanelContentProps> = ({ panel }) => {
         </div>
       </div>
 
-      {/* Holdings pills */}
+      {/* Holdings pills - clickable */}
       {panel.holdings && (
         <div className="flex flex-wrap gap-2 mb-6">
+          <button
+            onClick={() => setSelectedTicker(undefined)}
+            className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+              !selectedTicker
+                ? 'bg-foreground/20 border-foreground/30 text-foreground'
+                : 'bg-foreground/5 border-foreground/10 text-foreground/60 hover:bg-foreground/10'
+            }`}
+          >
+            {panel.ticker}
+          </button>
           {panel.holdings.map((h) => (
-            <span key={h} className="px-3 py-1 rounded-full text-xs font-medium bg-foreground/10 border border-foreground/10">
+            <button
+              key={h}
+              onClick={() => setSelectedTicker(h === selectedTicker ? undefined : h)}
+              className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+                selectedTicker === h
+                  ? 'bg-foreground/20 border-foreground/30 text-foreground'
+                  : 'bg-foreground/5 border-foreground/10 text-foreground/60 hover:bg-foreground/10'
+              }`}
+            >
               {h}
-            </span>
+            </button>
           ))}
         </div>
       )}
