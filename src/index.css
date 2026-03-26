@@ -47,6 +47,12 @@
     --panel-bonds-accent: 38 70% 55%;
     --panel-bitcoin: 20 60% 18%;
     --panel-bitcoin-accent: 18 80% 55%;
+    --panel-nasdaq: 260 45% 18%;
+    --panel-nasdaq-accent: 258 60% 55%;
+    --panel-gold: 48 55% 18%;
+    --panel-gold-accent: 45 75% 55%;
+    --panel-oil: 0 40% 18%;
+    --panel-oil-accent: 355 60% 50%;
 
     /* Strip colors */
     --strip-height: 3rem;
