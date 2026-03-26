@@ -18,15 +18,27 @@ const StripWithLiveData: React.FC<{
     return (
       <button
         onClick={onClick}
-        className="h-full flex items-center justify-center px-2 py-4 cursor-pointer select-none transition-all hover:brightness-125 border-r border-foreground/5"
+        className="h-full flex items-center justify-between px-2 py-6 cursor-pointer select-none transition-all hover:brightness-125 border-r border-foreground/5"
         style={{ minWidth: '3.5rem', writingMode: 'vertical-lr' }}
       >
-        <span className="text-xs font-semibold tracking-wide rotate-180">{panel.label}</span>
-        {!isLoading && data && (
-          <span className={`text-[10px] font-mono rotate-180 ml-1 ${data.positive ? 'text-green-400' : 'text-red-400'}`}>
-            {data.changePercent}
-          </span>
-        )}
+        <div className="flex items-center gap-3 rotate-180">
+          {isLoading ? (
+            <span className="text-xs opacity-40">…</span>
+          ) : data ? (
+            <>
+              <span className={`text-xs font-medium ${data.positive ? 'text-green-400' : 'text-red-400'}`}>
+                {data.changePercent}
+              </span>
+              <span className="text-sm font-mono opacity-80">{data.price}</span>
+            </>
+          ) : (
+            <span className="text-xs opacity-40">—</span>
+          )}
+        </div>
+        <div className="flex items-center gap-3 rotate-180">
+          <ChevronLeft className="w-4 h-4 opacity-40" />
+          <span className="text-sm font-semibold tracking-wide">{panel.label}</span>
+        </div>
       </button>
     );
   }
