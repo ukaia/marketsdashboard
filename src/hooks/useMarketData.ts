@@ -7,6 +7,7 @@ export interface LiveMarketData {
   changePercent: string;
   positive: boolean;
   headlines: Headline[];
+  candles: number[];
 }
 
 interface MarketDataResponse {
@@ -15,6 +16,7 @@ interface MarketDataResponse {
   changePercent: number;
   positive: boolean;
   headlines: Headline[];
+  candles: number[];
   timestamp: number;
 }
 
@@ -63,6 +65,7 @@ export function useMarketData(panelId: PanelId, ticker?: string) {
       changePercent: `${data.changePercent >= 0 ? "+" : ""}${data.changePercent.toFixed(2)}%`,
       positive: data.positive,
       headlines: data.headlines,
+      candles: data.candles ?? [],
     }),
   });
 }
