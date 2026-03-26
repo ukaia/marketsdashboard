@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+
 import type { PanelId, PanelData, Headline } from "@/data/panelData";
 import { panels as fallbackPanels } from "@/data/panelData";
 
