@@ -18,19 +18,19 @@ interface MarketDataResponse {
   timestamp: number;
 }
 
-async function fetchPanelData(panelId: PanelId): Promise<MarketDataResponse> {
+async function fetchPanelData(panelId: PanelId, ticker?: string): Promise<MarketDataResponse> {
   const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
   const anonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
-  const res = await fetch(
-    `https://${projectId}.supabase.co/functions/v1/market-data?panel=${panelId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${anonKey}`,
-        apikey: anonKey,
-      },
-    }
-  );
+  let url = `https://${projectId}.supabase.co/functions/v1/market-data?panel=${panelId}`;
+  if (ticker) url += `&ticker=${encodeURIComponent(ticker)}`;
+
+  const res = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${anonKey}`,
+      apikey: anonKey,
+    },
+  });
 
   if (!res.ok) {
     throw new Error(`Failed to fetch market data: ${res.status}`);
@@ -50,10 +50,10 @@ function formatChange(change: number, panelId: PanelId): string {
   return `${sign}${change.toFixed(2)}`;
 }
 
-export function useMarketData(panelId: PanelId) {
+export function useMarketData(panelId: PanelId, ticker?: string) {
   return useQuery({
-    queryKey: ["market-data", panelId],
-    queryFn: () => fetchPanelData(panelId),
+    queryKey: ["market-data", panelId, ticker ?? null],
+    queryFn: () => fetchPanelData(panelId, ticker),
     refetchInterval: 60_000,
     staleTime: 30_000,
     retry: 2,
