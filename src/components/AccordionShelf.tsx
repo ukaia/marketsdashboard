@@ -2,17 +2,14 @@ import React, { useState } from 'react';
 import { panels, panelThemes, type PanelId } from '@/data/panelData';
 import { useMarketData } from '@/hooks/useMarketData';
 import PanelContent from './PanelContent';
-import { ChevronUp, ChevronDown } from 'lucide-react';
+import { ChevronUp, ChevronDown, Loader2 } from 'lucide-react';
 
 const StripWithLiveData: React.FC<{
   panel: typeof panels[0];
   direction: 'up' | 'down';
   onClick: () => void;
 }> = ({ panel, direction, onClick }) => {
-  const { data: liveData } = useMarketData(panel.id);
-  const price = liveData?.price ?? panel.price;
-  const changePercent = liveData?.changePercent ?? panel.changePercent;
-  const positive = liveData?.positive ?? panel.positive;
+  const { data, isLoading } = useMarketData(panel.id);
 
   return (
     <button
@@ -28,10 +25,18 @@ const StripWithLiveData: React.FC<{
         <span className="text-sm font-semibold tracking-wide">{panel.label}</span>
       </div>
       <div className="flex items-center gap-3">
-        <span className="text-sm font-mono opacity-80">{price}</span>
-        <span className={`text-xs font-medium ${positive ? 'text-green-400' : 'text-red-400'}`}>
-          {changePercent}
-        </span>
+        {isLoading ? (
+          <Loader2 className="w-3 h-3 animate-spin opacity-40" />
+        ) : data ? (
+          <>
+            <span className="text-sm font-mono opacity-80">{data.price}</span>
+            <span className={`text-xs font-medium ${data.positive ? 'text-green-400' : 'text-red-400'}`}>
+              {data.changePercent}
+            </span>
+          </>
+        ) : (
+          <span className="text-xs opacity-40">—</span>
+        )}
       </div>
     </button>
   );
@@ -39,7 +44,6 @@ const StripWithLiveData: React.FC<{
 
 const AccordionShelf: React.FC = () => {
   const [activePanel, setActivePanel] = useState<PanelId>('largecap');
-
   const activeIndex = panels.findIndex((p) => p.id === activePanel);
 
   return (
@@ -65,7 +69,6 @@ const AccordionShelf: React.FC = () => {
                 onClick={() => setActivePanel(panel.id)}
               />
             )}
-
             {isActive && (
               <div className="h-full">
                 <PanelContent panel={panel} />
