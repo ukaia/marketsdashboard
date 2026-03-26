@@ -9,7 +9,7 @@ const corsHeaders = {
 // Finnhub symbol mapping per panel
 const PANEL_SYMBOLS: Record<string, { quoteSymbol: string; newsCategory: string; newsQuery: string }> = {
   largecap: { quoteSymbol: "SPY", newsCategory: "general", newsQuery: "S&P 500" },
-  midcap: { quoteSymbol: "MDY", newsCategory: "general", newsQuery: "mid cap stocks" },
+  midcap: { quoteSymbol: "IWM", newsCategory: "general", newsQuery: "Russell 2000 small cap" },
   foreign: { quoteSymbol: "EFA", newsCategory: "general", newsQuery: "international stocks" },
   bonds: { quoteSymbol: "TLT", newsCategory: "general", newsQuery: "treasury bonds" },
   bitcoin: { quoteSymbol: "BINANCE:BTCUSDT", newsCategory: "crypto", newsQuery: "bitcoin" },

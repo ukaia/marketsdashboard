@@ -16,7 +16,7 @@ export interface PanelInfo {
 
 export const panels: PanelInfo[] = [
   { id: 'largecap', label: 'Large Cap', ticker: 'S&P 500', holdings: ['AAPL', 'MSFT', 'NVDA', 'AMZN', 'GOOGL', 'META'] },
-  { id: 'midcap', label: 'Mid Cap', ticker: 'S&P 400', holdings: ['DECK', 'WSM', 'TOST', 'FND', 'EWBC'] },
+  { id: 'midcap', label: 'Small Cap', ticker: 'Russell 2000', holdings: ['SMCI', 'CORT', 'TASK', 'LUMN', 'AEHR'] },
   { id: 'foreign', label: 'International', ticker: 'MSCI EAFE', holdings: ['NESN', 'ASML', 'SAP', 'NOVO-B', 'SHEL'] },
   { id: 'bonds', label: 'Bonds', ticker: '10Y Treasury', holdings: ['TLT', 'AGG', 'BND', 'TIPS', 'HYG'] },
   { id: 'bitcoin', label: 'Bitcoin', ticker: 'BTC/USD' },
