@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { panels, panelThemes, type PanelId } from '@/data/panelData';
 import { useMarketData } from '@/hooks/useMarketData';
 import PanelContent from './PanelContent';
@@ -75,9 +75,28 @@ const StripWithLiveData: React.FC<{
 };
 
 const AccordionShelf: React.FC = () => {
-  const [activePanel, setActivePanel] = useState<PanelId>('largecap');
-  const [layout, setLayout] = useState<LayoutMode>('vertical');
+  const [activePanel, setActivePanel] = useState<PanelId>(() => {
+    const saved = localStorage.getItem('shelf-active-panel');
+    return (saved as PanelId) || 'largecap';
+  });
+  const [layout, setLayout] = useState<LayoutMode>(() => {
+    const saved = localStorage.getItem('shelf-layout');
+    return (saved as LayoutMode) || 'vertical';
+  });
   const activeIndex = panels.findIndex((p) => p.id === activePanel);
+
+  const handleSetPanel = useCallback((id: PanelId) => {
+    setActivePanel(id);
+    localStorage.setItem('shelf-active-panel', id);
+  }, []);
+
+  const handleToggleLayout = useCallback(() => {
+    setLayout(l => {
+      const next = l === 'vertical' ? 'horizontal' : 'vertical';
+      localStorage.setItem('shelf-layout', next);
+      return next;
+    });
+  }, []);
 
   return (
     <div className={`h-screen w-screen flex overflow-hidden ${layout === 'horizontal' ? 'flex-row' : 'flex-col'}`}>
