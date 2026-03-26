@@ -13,14 +13,6 @@ interface MarketDataResponse {
 }
 
 async function fetchPanelData(panelId: PanelId): Promise<MarketDataResponse> {
-  const { data, error } = await supabase.functions.invoke("market-data", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-    body: undefined,
-  });
-
-  // supabase.functions.invoke doesn't support query params easily,
-  // so we'll use fetch directly
   const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
   const anonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
