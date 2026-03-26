@@ -18,12 +18,12 @@ const StripWithLiveData: React.FC<{
     return (
       <button
         onClick={onClick}
-        className="h-full flex flex-col items-center justify-center gap-1 px-2 py-4 cursor-pointer select-none transition-all hover:brightness-125 border-r border-foreground/5"
+        className="h-full flex items-center justify-center px-2 py-4 cursor-pointer select-none transition-all hover:brightness-125 border-r border-foreground/5"
         style={{ minWidth: '3.5rem', writingMode: 'vertical-lr' }}
       >
         <span className="text-xs font-semibold tracking-wide rotate-180">{panel.label}</span>
         {!isLoading && data && (
-          <span className={`text-[10px] font-mono rotate-180 ${data.positive ? 'text-green-400' : 'text-red-400'}`}>
+          <span className={`text-[10px] font-mono rotate-180 ml-1 ${data.positive ? 'text-green-400' : 'text-red-400'}`}>
             {data.changePercent}
           </span>
         )}
