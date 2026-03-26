@@ -61,6 +61,12 @@ export default {
           "bonds-accent": "hsl(var(--panel-bonds-accent))",
           bitcoin: "hsl(var(--panel-bitcoin))",
           "bitcoin-accent": "hsl(var(--panel-bitcoin-accent))",
+          nasdaq: "hsl(var(--panel-nasdaq))",
+          "nasdaq-accent": "hsl(var(--panel-nasdaq-accent))",
+          gold: "hsl(var(--panel-gold))",
+          "gold-accent": "hsl(var(--panel-gold-accent))",
+          oil: "hsl(var(--panel-oil))",
+          "oil-accent": "hsl(var(--panel-oil-accent))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
